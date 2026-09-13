@@ -1,28 +1,30 @@
-pipeline{
+pipeline {
+
     agent any
-    stages{
-        stage("A"){
-            steps{
+
+    stages {
+
+        stage("A") {
+            steps {
                 sh 'ls -lrt'
             }
         }
-    }        
-    stages{
-        stage("B"){
-            steps{
-               sh '''
+
+        stage("B") {
+            steps {
+                sh '''
                     pwd
                     ls -lrt
                     sleep 5
-                  '''  
+                '''
             }
         }
-    }        
-    stages{
-        stage("C"){
-            steps{
-               sh 'This is stage3'
+
+        stage("C") {
+            steps {
+                sh 'echo "This is stage3"'
             }
         }
+
     }
-}    
+}
