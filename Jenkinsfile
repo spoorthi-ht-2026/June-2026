@@ -1,7 +1,8 @@
 pipeline {
-   
-   agent any
-
+agent any
+   parameters {
+  string defaultValue: 'main', description: 'provide the branch to build and deploy', name: 'BRANCH'
+}
     stages {
 
         stage("A") {
