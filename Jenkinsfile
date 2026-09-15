@@ -1,47 +1,30 @@
 pipeline {
     agent any
-     
-     environment{
-        BRANCH = 'main'
-     }
-    
+
+    parameters {
+        string(
+            defaultValue: 'main',
+            description: 'Provide the branch to build and deploy',
+            name: 'BRANCH'
+        )
+
+        choice(
+            choices: ['TEST', 'QA', 'PRE-PROD', 'PROD'],
+            description: 'Choose the environment to deploy',
+            name: 'ENVIRONMENT'
+        )
+        booleanParam defaultValue: true, description: 'Verify this to deploy', name: 'DRY_RUN'
+    }
+
     stages {
         stage('STAGE1') {
-            environment{
-                APP = 'frontend'
-            }
             steps {
                 sh '''
-                    echo APP - $APP
-                    echo BRANCH - $BRANCH
-                    sleep 5
+                    echo "BRANCH: $BRANCH"
+                    echo "ENVIRONMENT: $ENVIRONMENT"
+                    echo "DRY_RUN: $DRY_RUN"
+
                 '''
-            }
-        }
-
-        stage('STAGE2') {
-            steps {
-                sh '''
-                    echo APP - $APP
-                    echo BRANCH - $BRANCH
-                    sleep 10
-                    ls -lrt
-                '''
-                echo "${env.BRANCH}"
-            }
-        }
-
-        stage('STAGE3') {
-            steps {
-                echo 'This is Stage3'
-                sh 'sleep 5'
-            }
-        }
-
-        stage('STAGE4') {
-            steps {
-                sh 'echo This is STAGE4'
-                sh 'sleep 5'
             }
         }
     }
