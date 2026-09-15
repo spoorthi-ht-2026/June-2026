@@ -1,25 +1,19 @@
 pipeline {
     agent any
-
-    parameters {
-        string(
-            defaultValue: 'main',
-            description: 'Provide the branch to build and deploy',
-            name: 'BRANCH'
-        )
-
-        choice(
-            choices: ['TEST', 'QA', 'PRE-PROD', 'PROD'],
-            description: 'Choose the environment to deploy',
-            name: 'ENVIRONMENT'
-        )
-    }
-
+     
+     environment{
+        BRANCH = 'main'
+     }
+    
     stages {
         stage('STAGE1') {
+            environment{
+                APP = 'frontend'
+            }
             steps {
                 sh '''
-                    ls -lrt
+                    echo APP - $APP
+                    echo BRANCH - $BRANCH
                     sleep 5
                 '''
             }
@@ -28,10 +22,12 @@ pipeline {
         stage('STAGE2') {
             steps {
                 sh '''
-                    pwd
+                    echo APP - $APP
+                    echo BRANCH - $BRANCH
                     sleep 10
                     ls -lrt
                 '''
+                echo "${env.BRANCH}"
             }
         }
 
