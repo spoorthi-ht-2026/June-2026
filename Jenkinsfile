@@ -11,10 +11,14 @@ pipeline {
         }
         stage('STAGE2'){
             steps{
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+                script{
+                    try{
                 sh '''
                      exit 1
                 '''
+                    }catch(Exception e) {
+                        echo "Caught an Exception: ${e.message}"
+                    }
                 }     
             }
         }
