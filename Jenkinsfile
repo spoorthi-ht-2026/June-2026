@@ -5,15 +5,17 @@ pipeline {
         stage('STAGE1'){
             steps{
                 sh '''
-                    exit 1
+                    sleep 5
                  ''' 
             }
         }
         stage('STAGE2'){
             steps{
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
                 sh '''
-                     ls -lrt
-                '''     
+                     exit 1
+                '''
+                }     
             }
         }
         stage('STAGE3'){
