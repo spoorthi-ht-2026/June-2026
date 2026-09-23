@@ -1,5 +1,5 @@
-```groovy
 pipeline {
+
 
     agent {
         label 'slave1'
@@ -11,7 +11,7 @@ pipeline {
 
     environment {
         ENV = 'PROD'
-        STAGE1_STATUS = ''
+        STAGE1_STATUS = 
     }
 
     parameters {
