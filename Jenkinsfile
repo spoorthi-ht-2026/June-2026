@@ -78,6 +78,36 @@ pipeline {
 
         success {
             echo "Pipeline completed successfully"
+        
+        post {
+       success {
+        echo "Pipeline completed successfully"
+
+        emailext(
+            to: 'spoorthig994@gmail.com',
+            subject: "Jenkins Pipeline SUCCESS - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            body: """
+                    Hello Spoorthi,
+
+                    The Jenkins pipeline has completed successfully.
+
+                    Job Name: ${env.JOB_NAME}
+                    Build Number: ${env.BUILD_NUMBER}
+                    Build Status: ${currentBuild.currentResult}
+                    Branch: ${params.BRANCH}
+                    Environment: ${env.ENV}
+                    Build URL: ${env.BUILD_URL}
+
+                    Regards, 
+                    Jenkins
+                 """
+        )
+    }
+
+    failure {
+        echo "Pipeline failed"
+    }
+}
         }
 
         failure {
