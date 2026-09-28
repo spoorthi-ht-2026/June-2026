@@ -74,17 +74,12 @@ pipeline {
         }
     }
 
-    post {
-
-        success {
-            echo "Pipeline completed successfully"
-        
         post {
        success {
         echo "Pipeline completed successfully"
 
         emailext(
-            to: 'spoorthig994@gmail.com',
+            to: 'spoorthiht21@gmail.com',
             subject: "Jenkins Pipeline SUCCESS - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
             body: """
                     Hello Spoorthi,
@@ -113,5 +108,3 @@ pipeline {
         failure {
             echo "Pipeline failed"
         }
-    }
-}
